@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\ActorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\ActorController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\DirController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GuimailController;
+use App\Models\genres;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,21 +22,21 @@ use App\Http\Controllers\GuimailController;
 |
 */
 
+
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/chitiet/{id}', [HomeController::class, 'detail']);
-Route::get('/theloai/{id}', [HomeController::class, 'theloai']);
+Route::get('/phim/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::get('/genres/{id}', [HomeController::class, 'genres'])->name('genres');
 Route::post('/lienhe', [GuimailController::class, 'guimaillienhe'])->name('lienhe');
 Route::get('/baocao', [HomeController::class, 'baocao']);
-Route::get('phim/{slug}', [HomeController::class, 'slug']);
+
+
 // admin
-
-
-
 Route::get('admin', function () {
     return view('admin.page.index');
-});
+})->middleware('auth', 'checkAdmin');
 
-Route::group(['prefix' => 'admin'], function () {
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], function () {
     // Quản lý phim
     Route::resource('film', FilmController::class);
 
@@ -45,4 +48,21 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Quản lý thông tin diễn viên
     Route::resource('actor', ActorController::class);
+});
+
+Auth::routes();
+
+// login & register
+
+Route::group(['middleware' => ['checklogin']], function () {
+    // login
+    Route::get('login', function () {
+        $genres = genres::all();
+        return view('auth.login', ['genres' => $genres]);
+    })->name('login');
+
+    Route::get('register', function () {
+        $genres = genres::all();
+        return view('auth.register', ['genres' => $genres]);
+    })->name('register');
 });
