@@ -1,7 +1,4 @@
-<?php
 
-use APP\Http\Controllers\HomeController;
-?>
 @extends('layout.master')
 @section('content')
 <section class="container detail">
@@ -9,7 +6,7 @@ use APP\Http\Controllers\HomeController;
         <div class="detail-content detail-left col-9">
             <div class="sheader">
                 <div class="detail-poster">
-                    <img src="/storage/img/{{ $detail->wallpaper }}" />
+                    <img src="/storage/img/{{ $detail->poster }}" />
                 </div>
                 <div class="detail-data ml">
                     <h1>{{ $detail->title }} </h1>
@@ -29,45 +26,40 @@ use APP\Http\Controllers\HomeController;
                                         <li class="rating-item" data-rate="4"></li>
                                         <li class="rating-item" data-rate="5"></li>
                                     </ul>
-                                    <!-- <i class="fa fa-star-o" aria-hidden="true"></i>
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                      <i class="fa fa-star-o" aria-hidden="true"></i> -->
                                 </div>
                                 <div class="starstruck-rating">
                                     <span class="dt_rating_vgs">0</span>
                                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                     <span class="rating-count">1</span>
-                                    <span class="rating-text">Danh gia</span>
+                                    <span class="rating-text">Đánh giá</span>
                                 </div>
                             </div>
                             <div class="starstruck-rating-wrap">
-                                <h3>Danh gia cua ban: <span>0</span></h3>
+                                <h3>Đánh giá của bạn: <span>0</span></h3>
                             </div>
                         </div>
                     </div>
                     <div class="sgeneros">
-                        <a class="tag-theloai a-w" href="#" ref="tag">The loai</a>
-                        <a class="tag-theloai a-w" href="#" ref="tag">The loai</a>
-                        <a class="tag-theloai a-w" href="#" ref="tag">The loai</a>
+                        @foreach ($detail->genres as $item)
+                            <a class="tag-theloai a-w" href="{{ route('genres', ['id' => $item->slug])}}" ref="tag">{{$item->name}}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <div class="single_tabs">
-                <div class="button-tabs">
-                    <a id="defaultOpen" class="tab-links a-b" onclick="openTab(event,
+                <div class="button-tabs px-0">
+                    <a id="defaultOpen" class="tab-links a-b" style="cursor: pointer" onclick="openTab(event,
                                             'seeMovie')">Xem Phim</a>
-                    <a class="tab-links a-b" onclick="openTab(event,
-                                            'infoMovie')">Thong tin</a>
-                    <a class="tab-links a-b" onclick="openTab(event,
-                                            'castMovie')">Dien Vien</a>
-                    <a class="tab-links a-b" onclick="openTab(event,
+                    <a class="tab-links a-b" style="cursor: pointer" onclick="openTab(event,
+                                            'infoMovie')">Thông tin</a>
+                    <a class="tab-links a-b" style="cursor: pointer" onclick="openTab(event,
+                                            'castMovie')">Diễn Viên</a>
+                    <a class="tab-links a-b" style="cursor: pointer" onclick="openTab(event,
                                             'trailerMovie')">Trailers</a>
-                    <a class="tab-links a-b" onclick="openTab(event,
-                                            'commentMovie')">Comments</a>
+                    <a class="tab-links a-b" style="cursor: pointer" onclick="openTab(event,
+                                            'commentMovie')">Bình luận</a>
                 </div>
-                <div id="seeMovie" class="fixidtab sbox">
+                <div id="seeMovie" class="fixidtab sbox px-0">
                     <h2>Xem phim</h2>
                     <div class="serie_contenido">
                         <div class="seasons">
@@ -79,69 +71,49 @@ use APP\Http\Controllers\HomeController;
                                 <div class="se-a">
                                     <ul class="episodios">
                                         @foreach($detailsesion as $de)
-                                        <li class="">
-                                            <div class="imagen">
-                                                <img src="/storage/img/{{ $de->wallpaper }}" />
-                                            </div>
-                                            <div class="numerando">1-1</div>
-                                            <div class="episodiotitle">
-                                                <a href="#">{{$de->title}}</a>
-                                                <span class="extra-date" itemprop="dataCreated">{{$de->year_release}}</span>
-                                            </div>
-                                        </li>
+                                            <li class="">
+                                                <div class="imagen">
+                                                    <img src="/storage/img/{{ $de->wallpaper }}" />
+                                                </div>
+                                                <div class="numerando">1-1</div>
+                                                <div class="episodiotitle">
+                                                    <a href="#">{{$de->title}}</a>
+                                                    <span class="extra-date" itemprop="dataCreated">{{$de->year_release}}</span>
+                                                </div>
+                                            </li>
                                         @endforeach
-                                        <!-- <li class="">
-                                            <div class="imagen">
-                                                <img src="img/rita1.jpg" />
-                                            </div>
-                                            <div class="numerando">1-1</div>
-                                            <div class="episodiotitle">
-                                                <a href="#">Episode-1</a>
-                                                <span class="extra-date" itemprop="dataCreated">14/01/2021</span>
-                                            </div>
-                                        </li>
-                                        <li class="">
-                                            <div class="imagen">
-                                                <img src="img/rita1.jpg" />
-                                            </div>
-                                            <div class="numerando">1-1</div>
-                                            <div class="episodiotitle">
-                                                <a href="#">Episode-1</a>
-                                                <span class="extra-date" itemprop="dataCreated">14/01/2021</span>
-                                            </div>
-                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="infoMovie" class="fixidtab sbox">
+                <div id="infoMovie" class="fixidtab sbox px-0">
                     <h2>Nội dung phim</h2>
                     <div class="wp-content">
-                        <p><strong>{{$de->title}}</strong></p>
+                        <p><strong>{{$detail->title}}</strong></p>
                         <p class="content-p">
-                            {{$de->content}}
+                            {{$detail->content}}
                         </p>
                     </div>
                     <div class="custom_fields">
                         <b class="variante">Tên phim: </b>
-                        <span class="valor">{{$de->title}}</span>
+                        <span class="valor">{{$detail->title}}</span>
                     </div>
                     <div class="custom_fields">
-                        <b class="variante">Diễn viên: </b>
-                        <span class="valor">Fallen Rosemary</span>
+                        <b class="variante">Đạo diễn: </b>
+                        <span class="valor">{{$detail->dir->name}}</span>
                     </div>
                     <div class="custom_fields">
                         <b class="variante">Thời lượng: </b>
-                        <span class="valor">{{$de->time}} Phút</span>
+                        <span class="valor">{{$detail->time}} Phút</span>
                     </div>
                     <div class="custom_fields">
                         <b class="variante">Ngày phát hành: </b>
-                        <span class="valor">{{$de->year_release}}</span>
+                        <span class="valor">{{$detail->year_release}}</span>
                     </div>
                 </div>
-                <div id="castMovie" class="fixidtab sbox">
+                <div id="castMovie" class="fixidtab sbox px-0">
                     <h2>Diễn viên</h2>
                         <div class="persons">
 
@@ -164,12 +136,12 @@ use APP\Http\Controllers\HomeController;
                     </div>
                     
                 </div>
-                <div id="trailerMovie" class="fixidtab sbox">
+                <div id="trailerMovie" class="fixidtab sbox px-0">
                     <h2>Video Trailers</h2>
                     <div class="videobox">
                         <div class="embed">
                             @php
-                            echo $de->link_youtube
+                                echo $detail->link_youtube
                             @endphp
                         </div>
                     </div>
@@ -181,7 +153,7 @@ use APP\Http\Controllers\HomeController;
                     </div>
                     <div class="comment-movie row">
                         <textarea rows="3" cols="7" placeholder="Comment">
-                       Comment</textarea>\
+                       Comment</textarea>
                     </div>
                     <button class="send-comment a-b" rows="2">Gửi</button>
                     <div class="see-comment">
@@ -215,14 +187,14 @@ use APP\Http\Controllers\HomeController;
                         </div>
                     </div>
                 </div>
-                <div class="sbox">
+                <div class="sbox px-0">
                     <div class="dt_social_single">
                         <span class="dt_social_single-span">Đã chia sẽ: <b id="social_count">0</b></span>
                         <a href="#" class="icon-face"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a>
                         <a href="#" class="icon-twitter"><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</a>
                     </div>
                 </div>
-                <div class="sbox srelacionados">
+                <div class="sbox srelacionados px-0">
                     <h2>Có thể bạn muốn xem</h2>
                     <div class="owl-wrapper-outer">
                         <div class="carousel-album">
@@ -260,7 +232,7 @@ use APP\Http\Controllers\HomeController;
                     </div>
                     <div class="sidebar-item-content">
                         <div class="movie-title p-2">
-                            <a href="" class="a-w">{{ Str::substr($item->title, 0, 17) }}</a>
+                            <a href="{{ route('detail', ['id' => $item->slug ])}}" class="a-w">{{ Str::substr($item->title, 0, 17) }}</a>
                         </div>
                         <small class="movie-year p-2" style="color: #95a5a6">{{$item->year_release}}</small>
                     </div>

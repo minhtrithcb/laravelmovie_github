@@ -20,4 +20,9 @@ class film extends Model
     {
         return $this->belongsToMany(actor::class, 'film_actor');
     }
+
+    public function dir()
+    {
+        return $this->hasOne(director::class, 'id');
+    }
 }

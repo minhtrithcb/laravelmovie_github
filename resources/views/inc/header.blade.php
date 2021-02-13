@@ -11,12 +11,12 @@ use App\Http\Controllers\HomeController;
             <nav class="col-4">
                 <ul class="nav-menu d-flex justify-content-between" style="margin-bottom: 0;">
                     <li><a href="" class="a-w">Mới nhất</a></li>
-                    <li><a href="" class="a-w">Đăng kí</a></li>
-                    <li><a href="" class="a-w">Miễn phí</a></li>
+                    <li><a href="{{ Route('login') }}" class="a-w">Đăng nhập</a></li>
+                    <li><a href="baocao" class="a-w">Báo cáo</a></li>
                     <li><a href="" class="a-w">Thể loại</a>
                         <ul class="c-dropdown">
                             @foreach ($genres as $genre)
-                            <li><a href="{{action([HomeController::class,'theloai'], [$genre->id])}}" class="a-w">{{$genre->name}}</a></li>
+                            <li><a href="{{ route('genres', [$genre->slug])}}" class="a-w">{{$genre->name}}</a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -51,9 +51,21 @@ use App\Http\Controllers\HomeController;
                             <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
                         </svg>
                         <ul class="sidebar-ul shadow">
-                            <li><a href="/" class="a-b">Hồ sơ</a></li>
+                            <li>
+                                @if (Auth::check())
+                                    <a href="/" class="a-b">{{ Auth::user()->name }}</a>
+                                @else
+                                    <a href="/" class="a-b">Khách</a>
+                                @endif
+                            </li>
                             <li><a href="/" class="a-b">Danh sách phát</a></li>
-                            <li><a href="/" class="a-b">Logout</a></li>
+                            <li>
+                                @if (Auth::check())
+                                    <a href="/" class="a-b" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">Thoát</a>
+                                @endif
+                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                         </ul>
                     </div>
                 </div>

@@ -49,8 +49,7 @@
                     <h2 class="a-w">Báo cáo</h2>
                     <p>Chức năng:</p>
                     <ul>
-                        <li>Migrate</li>
-                        <li>seed</li>
+                        <li><p>Migrate, seed</p></li>
                         <li>
                             <p>Show trang chủ, trang chi tiết, show theo thê loại, liên hệ</p>
                         </li>

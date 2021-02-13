@@ -37,9 +37,9 @@ use App\Http\Controllers\GuimailController;
     </ul>
     <ul>
         <b>Theo dõi chúng tôi</b>
-        <li><a href="#" class="a-w"><i class="fab fa-facebook-square"></i>facebook</a></li>
-        <li><a href="#" class="a-w"><i class="fab fa-instagram"></i>instagram</a></li>
-        <li><a href="#" class="a-w"><i class="fab fa-tumblr-square"></i>tumblr</a></li>
-        <li><a href="#" class="a-w"><i class="fab fa-twitter-square"></i>twitter</a></li>
+        <li><a href="#" class="a-w">facebook</a></li>
+        <li><a href="#" class="a-w">instagram</a></li>
+        <li><a href="#" class="a-w">tumblr</a></li>
+        <li><a href="#" class="a-w">twitter</a></li>
     </ul>
 </footer>
