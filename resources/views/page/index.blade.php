@@ -1,8 +1,3 @@
-<?php
-
-use App\Http\Controllers\HomeController;
-?>
-
 @extends('layout.master')
 
 @section('content')
@@ -26,11 +21,10 @@ use App\Http\Controllers\HomeController;
             <!-- @yield('content') -->
 
             <div class="movies-container">
-
                 @foreach($film as $key)
                 <div class="movie-item">
                     <div class="movie-img">
-                        <img src="/storage/img/{{ $key->wallpaper }}" alt="">
+                        <img src="/storage/img/{{ $key->poster }}" alt="">
                     </div>
                     <div class="movie-ratingavg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -38,11 +32,11 @@ use App\Http\Controllers\HomeController;
                         </svg>
                         <?= $key->imdb ?>
                     </div>
-                    <div class="movie-title p-2"><a href="{{action([HomeController::class, 'detail'],[$key->id])}}" class="a-w">{{ Str::substr($key->title, 0, 17) }}</a></div>
+                    <div class="movie-title p-2"><a href="{{ route('detail', ['id' => $key->slug ])}}" class="a-w">{{ Str::substr($key->title, 0, 17) }}</a></div>
                     <small class="movie-year p-2" style="color: #95a5a6;"><?= $key->time ?> Phút</small>
                     <div class="movie-popup">
                         <div class="p-2">
-                            <div class="movie-title p-2"><a href="" class="a-w"><?= $key->title ?> </a></div>
+                            <div class="movie-title p-2"><a href="" class="a-w">{{ Str::substr($key->title, 0, 35) }} </a></div>
                         </div>
                         <div class="popup-imdb d-flex align-items-center justify-content-around">
                             <span class="btn btn-dark"><?= $key->imdb ?> </span>
@@ -51,11 +45,12 @@ use App\Http\Controllers\HomeController;
                             <small><?= $key->view ?> lược xem</small>
                         </div>
                         <div class="p-2">
-                            <p style="color: #95a5a6;">{{ Str::substr($key->content, 0, 100) }} ...</p>
+                            <p style="color: #95a5a6;" class="m-0">{{ Str::substr($key->content, 0, 100) }} ...</p>
                         </div>
                         <ul class="popup-genres">
-                            <li><a href="" class="a-w"></a></li>
-
+                            @foreach ($key->genres as $item)
+                                <li><a href="{{ route('genres', ['id' => $item->slug])}}" class="a-w">{{$item->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -72,10 +67,10 @@ use App\Http\Controllers\HomeController;
                 @foreach($film as $i => $bar)
                 <div class="movie-sidebar-item">
                     <div class="movie-img">
-                        <img src="/storage/img/<?= $bar->wallpaper ?>" alt="">
+                        <img src="/storage/img/<?= $bar->poster ?>" alt="">
                     </div>
                     <div class="sidebar-item-content">
-                        <div class="movie-title p-2"><a href="{{action([HomeController::class, 'detail'],[$bar->id])}}" class="a-w">{{ Str::substr($bar->title, 0, 20) }}</a></div>
+                        <div class="movie-title p-2"><a href="{{ route('detail', ['id' => $bar->slug ])}}" class="a-w">{{ Str::substr($bar->title, 0, 20) }}</a></div>
                         <small class="movie-year p-2" style="color: #95a5a6;"><?= $bar->time ?> Phút</small>
                     </div>
                     <div class="sidebar-number">{{$i+1}}</div>
@@ -105,7 +100,7 @@ use App\Http\Controllers\HomeController;
                 @foreach($film1 as $key)
                 <div class="movie-item">
                     <div class="movie-img">
-                        <img src="/storage/img/<?= $key->wallpaper ?>" alt="">
+                        <img src="/storage/img/<?= $key->poster ?>" alt="">
                     </div>
                     <div class="movie-ratingavg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -113,11 +108,11 @@ use App\Http\Controllers\HomeController;
                         </svg>
                         <?= $key->imdb ?>
                     </div>
-                    <div class="movie-title p-2"><a href="{{action([HomeController::class, 'detail'],[$key->id])}}" class="a-w">{{ Str::substr($key->title, 0, 17) }}</a></div>
+                    <div class="movie-title p-2"><a href="{{ route('detail', ['id' => $key->slug ])}}" class="a-w">{{ Str::substr($key->title, 0, 17) }}</a></div>
                     <small class="movie-year p-2" style="color: #95a5a6;"><?= $key->time ?> Phút</small>
                     <div class="movie-popup">
                         <div class="p-2">
-                            <div class="movie-title p-2"><a href="" class="a-w"><?= $key->title ?> </a></div>
+                            <div class="movie-title p-2"><a href="" class="a-w">{{ Str::substr($key->title, 0, 35) }} </a></div>
                         </div>
                         <div class="popup-imdb d-flex align-items-center justify-content-around">
                             <span class="btn btn-dark"><?= $key->imdb ?> </span>
@@ -126,11 +121,12 @@ use App\Http\Controllers\HomeController;
                             <small><?= $key->view ?> lược xem</small>
                         </div>
                         <div class="p-2">
-                            <p style="color: #95a5a6;">{{ Str::substr($key->content, 0, 100) }} ...</p>
+                            <p style="color: #95a5a6;" class="m-0">{{ Str::substr($key->content, 0, 100) }} ...</p>
                         </div>
                         <ul class="popup-genres">
-                            <li><a href="" class="a-w"></a></li>
-
+                            @foreach ($key->genres as $item)
+                                <li><a href="{{ route('genres', ['id' => $item->slug])}}" class="a-w">{{$item->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -148,10 +144,10 @@ use App\Http\Controllers\HomeController;
                 @foreach($film1 as $i=>$bar1)
                 <div class="movie-sidebar-item">
                     <div class="movie-img">
-                        <img src="/storage/img/{{$bar1->wallpaper}} " alt="">
+                        <img src="/storage/img/{{$bar1->poster}} " alt="">
                     </div>
                     <div class="sidebar-item-content">
-                        <div class="movie-title p-2"><a href="{{action([HomeController::class, 'detail'],[$bar1->id])}}" class="a-w">{{ Str::substr($bar1->title, 0, 17) }}</a></div>
+                        <div class="movie-title p-2"><a href="{{ route('detail', ['id' => $bar1->slug ])}}" class="a-w">{{ Str::substr($bar1->title, 0, 17) }}</a></div>
                         <small class="movie-year p-2" style="color: #95a5a6;">{{$bar1->time}} Phút</small>
                     </div>
                     <div class="sidebar-number">{{$i+1}}</div>
@@ -180,7 +176,7 @@ use App\Http\Controllers\HomeController;
                 @foreach($film2 as $key2)
                 <div class="movie-item">
                     <div class="movie-img">
-                        <img src="/storage/img/<?= $key2->wallpaper ?>" alt="">
+                        <img src="/storage/img/<?= $key2->poster ?>" alt="">
                     </div>
                     <div class="movie-ratingavg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -188,11 +184,11 @@ use App\Http\Controllers\HomeController;
                         </svg>
                         <?= $key2->imdb ?>
                     </div>
-                    <div class="movie-title p-2"><a href="{{action([HomeController::class, 'detail'],[$key2->id])}}" class="a-w">{{ Str::substr($key2->title, 0, 17) }}</a></div>
+                    <div class="movie-title p-2"><a href="{{ route('detail', ['id' => $key2->slug ])}}" class="a-w">{{ Str::substr($key2->title, 0, 17) }}</a></div>
                     <small class="movie-year p-2" style="color: #95a5a6;"><?= $key2->time ?> Phút</small>
                     <div class="movie-popup">
                         <div class="p-2">
-                            <div class="movie-title p-2"><a href="" class="a-w">{{ Str::substr($key2->title, 0, 17) }} </a></div>
+                            <div class="movie-title p-2"><a href="" class="a-w">{{ Str::substr($key2->title, 0, 35) }} </a></div>
                         </div>
                         <div class="popup-imdb d-flex align-items-center justify-content-around">
                             <span class="btn btn-dark"><?= $key2->imdb ?> </span>
@@ -201,11 +197,12 @@ use App\Http\Controllers\HomeController;
                             <small><?= $key2->view ?> lược xem</small>
                         </div>
                         <div class="p-2">
-                            <p style="color: #95a5a6;">{{ Str::substr($key2->content, 0, 100) }} ...</p>
+                            <p style="color: #95a5a6;" class="m-0">{{ Str::substr($key2->content, 0, 100) }} ...</p>
                         </div>
                         <ul class="popup-genres">
-                            <li><a href="" class="a-w"></a></li>
-
+                            @foreach ($key->genres as $item)
+                                <li><a href="{{ route('genres', ['id' => $item->slug])}}" class="a-w">{{$item->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -222,10 +219,10 @@ use App\Http\Controllers\HomeController;
                 @foreach($film2 as $i => $bar2)
                 <div class="movie-sidebar-item">
                     <div class="movie-img">
-                        <img src="/storage/img/{{$bar2->wallpaper}} " alt="">
+                        <img src="/storage/img/{{$bar2->poster}} " alt="">
                     </div>
                     <div class="sidebar-item-content">
-                        <div class="movie-title p-2"><a href="{{action([HomeController::class, 'detail'],[$bar2->id])}}" class="a-w">{{ Str::substr($bar2->title, 0, 20) }} </a></div>
+                        <div class="movie-title p-2"><a href="{{ route('detail', ['id' => $bar2->slug ])}}" class="a-w">{{ Str::substr($bar2->title, 0, 20) }} </a></div>
                         <small class="movie-year p-2" style="color: #95a5a6;">{{$bar->time}} Phút</small>
                     </div>
                     <div class="sidebar-number">{{$i+1}}</div>

@@ -22,54 +22,52 @@ class HomeController extends Controller
         return view('page.index', ["film" => $film, "genres" => $genres, "film1" => $film1, 'film2' => $film2, "banner" => $banner]);
     }
 
-    public function slug($s)
+    public function detail($id)
     {
-        $f = film::where('slug', $s)->first();
-        if (!$f) {
+        $detail = film::where('slug', $id)->first();
+
+        if (!$detail) {
             abort(404);
         }
 
-        return dd($f);
-        // return view('page.index', ["genres" => $genres]);
-    }
-
-    public function detail($id)
-    {
-        $detail = film::where('id', $id)->first();
         $viewfilm = film::orderby('view', 'desc')->limit(10)->get();
         $detailsesion = film::where('id', $id)->get();
         $genres = genres::all();
         $actor = $detail->actor;
-        if ($detail == null) {
-            echo 'Phim không tồn tại';
-            return;
-        }
 
-        // return dd($actor);
+
         return view('page.detail', [
             'detail' => $detail,
             'genres' => $genres,
             'actor' => $actor,
             'detailsesion' => $detailsesion,
             'viewfilm' => $viewfilm,
-
         ]);
     }
-    public function theloai($id)
+
+
+    public function genres($id)
     {
-        $theloai = genres::where('id', $id)->paginate(5);
+        $theloaislug = genres::where('slug', $id)->first();
+
+        if (!$theloaislug) {
+            abort(404);
+        }
+
+        $theloai = $theloaislug->film;
         $genres = genres::all();
         $filmtheloai = film::where('id', $id)->get();
         $filmshowall = film::all();
         $genres1 = genres::offset(0)->limit(3)->get();
         $genres2 = genres::offset(3)->limit(9)->get();
+
         return view('page.showall', [
             'theloai' => $theloai,
             'genres' => $genres,
-            'filmtheloai' => $filmtheloai,
-            'filmshowall' => $filmshowall,
-            'genres1' => $genres1,
-            'genres2' => $genres2
+            // 'filmtheloai' => $filmtheloai,
+            // 'filmshowall' => $filmshowall,
+            // 'genres1' => $genres1,
+            // 'genres2' => $genres2
         ]);
     }
 

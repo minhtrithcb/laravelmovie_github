@@ -85,7 +85,9 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Thông tin</a>
                                 <a class="dropdown-item" href="#">Cài đặt</a>
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a href="/" class="dropdown-item" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">Thoát</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                             </div>
                         </div>
                     </div>

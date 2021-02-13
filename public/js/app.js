@@ -2,6 +2,10 @@ let searchBtn = document.querySelector('.sidebar-search');
 let searchBox = document.querySelector('.search-box');
 let a = true;
 
+document.querySelector('#bannerid2').classList.add('banner-slide-item-active');
+document.querySelector('#posterid2').classList.add('main-mini-cart-active');
+// document.querySelector('.banner-slide-item-active')
+
 searchBtn.addEventListener('click', function () {
     if (a == true) {
         searchBox.style.display = 'block';
@@ -17,23 +21,23 @@ searchBtn.addEventListener('click', function () {
     }
 });
 
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
-  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    document.querySelector(".wrap-fix").style.backgroundColor = "#000000d3";
-    document.querySelector("body").classList.add('body');
-  } else {
-    document.querySelector(".wrap-fix").style.backgroundColor = "transparent";
-    document.querySelector("body").classList.remove('body');
-  }
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.querySelector(".wrap-fix").style.backgroundColor = "#000000d3";
+        document.querySelector("body").classList.add('body');
+    } else {
+        document.querySelector(".wrap-fix").style.backgroundColor = "transparent";
+        document.querySelector("body").classList.remove('body');
+    }
 }
 
 
 let slide = document.querySelectorAll(".banner-slide-item");
 let allcard = document.querySelectorAll(".main-mini-cart");
 // let currentpage = document.querySelector("#current-page");
-let startindex = 0;
+let startindex = 2;
 // let totalpage = slide.length;
 
 function prevSlide() {
